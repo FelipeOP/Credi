@@ -1,6 +1,7 @@
 import { currency, percent } from "./format";
 import type {
   CalculatorKind,
+  StandardCalculatorKind,
   InvestmentInput,
   InvestmentResult,
   LoanInput,
@@ -33,7 +34,7 @@ export interface ReportModel {
 }
 
 export interface ReportSource {
-  kind: CalculatorKind;
+  kind: StandardCalculatorKind;
   loanInput: LoanInput;
   prepaymentInput: PrepaymentInput;
   investmentInput: InvestmentInput;
@@ -50,7 +51,7 @@ function loanTables(result: LoanResult, scenario: string) {
         "Año",
         "Total pagado",
         "Intereses",
-        "Capital ordinario",
+        "Capital de la cuota",
         "Abono adicional",
         "Saldo",
       ],
@@ -69,7 +70,7 @@ function loanTables(result: LoanResult, scenario: string) {
         "Mes",
         "Cuota ordinaria",
         "Intereses",
-        "Capital ordinario",
+        "Capital de la cuota",
         "Abono adicional",
         "Saldo",
       ],
@@ -258,6 +259,7 @@ export function buildReport(source: ReportSource): ReportModel {
       ],
       explanations: [
         "Ambos escenarios parten del mismo saldo y usan la misma tasa. El ahorro es la diferencia entre sus intereses futuros; no incluye intereses ya pagados.",
+        "Capital de la cuota = cuota ordinaria − intereses. Por ejemplo, de una cuota de $500.000 con $100.000 de intereses, $400.000 reducen la deuda. Los abonos adicionales también reducen la deuda y se presentan por separado.",
         prepaymentInput.mode === "term"
           ? "Se conserva la cuota ordinaria y se reduce el número de períodos. La última cuota o el último abono se limitan al saldo pendiente."
           : "Cada abono recalcula la cuota para los períodos pendientes. La cuota cambia después de cada abono y no vuelve a la cuota original cuando termina la ventana de aportes.",
@@ -347,7 +349,7 @@ export function buildReport(source: ReportSource): ReportModel {
       ["Plazo", `${loan.rows.length} meses`],
     ],
     explanations: [
-      "Cada cuota contiene interés y amortización de capital. El interés se calcula sobre el saldo pendiente; el resto de la cuota reduce la deuda.",
+      "Capital de la cuota = cuota ordinaria − intereses. De una cuota de $500.000 con $100.000 de intereses, $400.000 reducen la deuda. Los intereses son el costo del préstamo y no reducen el saldo.",
       input.rateKind === "monthly"
         ? "La tasa mensual mes vencido (M.V.) se aplica directamente al saldo de cada mes, sin dividirla entre 12. Su equivalente anual es (1 + tasa mensual)^12 - 1."
         : input.rateKind === "nominal" && input.compoundingPeriods === 12

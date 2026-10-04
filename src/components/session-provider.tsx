@@ -9,6 +9,7 @@ import {
 } from "react";
 import {
   defaultInvestment,
+  defaultIncome,
   defaultLoan,
   defaultPrepayment,
 } from "@/lib/defaults";
@@ -18,20 +19,24 @@ import {
   calculatePrepayment,
 } from "@/lib/finance/calculations";
 import type {
+  IncomeInput,
   InvestmentInput,
   LoanInput,
   PrepaymentInput,
 } from "@/lib/finance/types";
+import { calculateIncome } from "@/lib/finance/income";
 
 export interface SimulationState {
   loan: LoanInput;
   prepayment: PrepaymentInput;
   investment: InvestmentInput;
+  income: IncomeInput;
 }
 const initialState: SimulationState = {
   loan: defaultLoan,
   prepayment: defaultPrepayment,
   investment: defaultInvestment,
+  income: defaultIncome,
 };
 const storageKey = "credi.simulations.v1";
 const SessionContext = createContext<{
@@ -55,6 +60,7 @@ function validStoredState(value: unknown): value is SimulationState {
     calculateLoan(candidate.loan);
     calculatePrepayment(candidate.prepayment);
     calculateInvestment(candidate.investment);
+    calculateIncome(candidate.income);
     return true;
   } catch {
     return false;
@@ -69,7 +75,15 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     try {
       const raw = localStorage.getItem(storageKey);
       if (!raw) return;
-      const parsed: unknown = JSON.parse(raw);
+      const stored: unknown = JSON.parse(raw);
+      const parsed: unknown =
+        stored && typeof stored === "object"
+          ? {
+              ...stored,
+              income:
+                (stored as Partial<SimulationState>).income ?? defaultIncome,
+            }
+          : stored;
       if (validStoredState(parsed)) {
         setState(parsed);
         setHasSaved(true);

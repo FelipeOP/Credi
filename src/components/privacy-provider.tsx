@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { usePathname } from "next/navigation";
-import { ShieldCheck } from "@phosphor-icons/react";
+import { ShieldCheck } from "@/components/icons";
 
 interface Consent {
   analytics: boolean;

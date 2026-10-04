@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { CaretLeft, CaretRight } from "@/components/icons";
 import { currency } from "@/lib/format";
 import type { InvestmentResult, LoanResult } from "@/lib/finance/types";
 
@@ -105,7 +105,7 @@ export function ScheduleTable({
                       : "Total pagado"}
                   </th>
                   <th scope="col">Intereses</th>
-                  <th scope="col">Capital ordinario</th>
+                  <th scope="col">Capital de la cuota</th>
                   <th scope="col">Abono adicional</th>
                   <th scope="col">Saldo</th>
                 </>
@@ -174,7 +174,7 @@ export function ScheduleTable({
       <p className="table-explanation">
         {investment
           ? "El saldo invertido excluye intereses retirados. Los aportes se realizan al final de cada mes."
-          : "Capital ordinario es la parte de la cuota que reduce la deuda; el abono adicional se muestra por separado. El saldo anual es el cierre del último mes del grupo."}{" "}
+          : "Capital de la cuota = cuota ordinaria − intereses. Si pagas $500.000 y $100.000 son intereses, los $400.000 restantes reducen tu deuda. Los intereses no reducen el saldo. Un abono adicional se suma a ese capital y aparece por separado. El saldo anual es el cierre del último mes del grupo."}{" "}
         El PDF conserva dos decimales.
       </p>
     </section>

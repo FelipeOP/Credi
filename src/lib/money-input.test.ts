@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { displayMoney, moneyCaretPosition, normalizeMoneyInput, parseMoneyInput } from "./money-input";
+import {
+  displayMoney,
+  moneyCaretPosition,
+  normalizeMoneyInput,
+  parseMoneyInput,
+} from "./money-input";
 
 describe("COP input", () => {
   it("formats complete pesos and preserves entered cents", () => {

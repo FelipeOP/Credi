@@ -203,6 +203,10 @@ function Chart({ chart }: { chart: ReportModel["chart"] }) {
   const height = 150;
   const maximum = Math.max(1, ...chart.first, ...chart.second);
   function path(values: number[]) {
+    if (values.length === 1) {
+      const y = height - 10 - (values[0] / maximum) * (height - 20);
+      return `M 8 ${y.toFixed(2)} L ${width - 8} ${y.toFixed(2)}`;
+    }
     return values
       .map(
         (value, index) =>
@@ -259,7 +263,7 @@ function Chart({ chart }: { chart: ReportModel["chart"] }) {
   );
 }
 function columnWidth(table: ReportTable, index: number) {
-  const first = table.columns.length === 4 ? 31 : 6;
+  const first = table.columns[0] === "Métrica" ? 31 : 6;
   return `${index === 0 ? first : (100 - first) / (table.columns.length - 1)}%`;
 }
 function TableBlock({

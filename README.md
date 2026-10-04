@@ -16,12 +16,14 @@ Open http://127.0.0.1:3000. Run `pnpm test`, `pnpm typecheck` and `pnpm build` b
 ## Product decisions
 
 - Black and copper visual identity inspired by the supplied Slash reference. Serif display typography; sans-serif UI and tabular numerals. Restrained CSS motion with reduced-motion support.
-- Three independently addressable calculators: `/credito/`, `/abonos/`, `/inversion/`. The home page presents the credit calculator and canonicalizes to `/credito/`.
+- Four independently addressable calculators: `/credito/`, `/abonos/`, `/inversion/`, `/ingresos/`. The home page presents the credit calculator and canonicalizes to `/credito/`.
 - Fixed-rate, monthly, level-payment loans; monthly fixed-rate investment projections. No taxes, insurance, fees, variable rates or exact daily CDT settlement in v1.
-- Optional local storage, no accounts. Save explicitly persists all three input sets. Financial inputs are never included in telemetry. Downloaded PDFs remain under the user's control.
+- Optional local storage, no accounts. Save explicitly persists all four input sets and appears only on calculator routes. Legacy v1 saves migrate by adding the default income inputs. Financial inputs are never included in telemetry. Downloaded PDFs remain under the user's control.
 - React PDF for client-side report generation, AdSense for eventual advertising, GA4 for optional analytics.
 - COP amount inputs group thousands while typing, preserve up to two entered cents with a comma, and keep numeric values separate from display text. Editing in the middle preserves the caret relative to the digits.
 - PDF reports use a white statement-style layout with restrained copper accents, explicit font sizes/leading, a compact executive summary and proportioned numeric columns. The Nu screenshot is a layout reference only; no personal details or Nu branding are reproduced.
+- Colombia Icons React (`@mteherandev/colombia-icons-react`, MIT) replaces Phosphor. `src/components/icons.ts` maps upstream Spanish export names to the application's English vocabulary. Generic line icons preserve the restrained visual system; no unrelated decorative icons are added.
+- The footer heart is a user-approved Colombian flag accent: hard-stop yellow, blue and red SVG strokes. Keep this treatment confined to the country icon; footer text and the rest of the interface retain the existing palette.
 
 ## Architecture
 
@@ -54,6 +56,9 @@ Amounts use `decimal.js` at 32 significant digits. Monetary movements round to t
 - Optional implied rate is solved from the **original** principal, term and bank installment using bisection. It assumes the installment contains only principal and interest. Never portray it as proof of the contractual rate.
 - Investment interest accrues before the end-of-month contribution. Reinvestment adds interest to the invested balance. Withdrawn interest accumulates separately; total value includes it without further assumed return.
 - Annual summaries aggregate flows and use the last closing balance, never sum balances. Years are contract/projection blocks, not calendar years.
+- Income goals default to 9% E.A., an editable scenario rather than a market quote. Required capital = desired monthly income / equivalent monthly rate, rounded upward to cents. `src/lib/finance/income.ts` reinvests returns and applies end-month deposits until the goal or the selected 1–600-month horizon. Milestones are the first crossing of 25/50/75/100% of required capital. An already met goal uses month zero; unmet goals report shortfall and estimated closing income. Initial capital may be zero. Income goals require a positive rate (0.01–200% E.A.).
+- Product selection changes explanations, not the assumed constant-rate mathematics. CDT payment dates/contribution restrictions, savings-rate variability and ETF total returns versus dividends are explicit. ETF returns and monthly withdrawals are not guaranteed. Accumulation has no withdrawals; modeled post-goal income is gross interest on the closing balance, excluding taxes, fees, inflation and price changes.
+- Loan tables use “Capital de la cuota”: the installment minus interest, excluding additional principal payments. UI, FAQs and PDFs share a numeric example. Paired form fields use shared grid rows so wrapped labels do not shift input positions.
 
 The engine validates finite numbers, whole-month terms, ranges and supported options. Limits: 1–600 months, annual rates 0–200%, monthly rates 0–20%, and amounts up to COP 1 trillion. These are simulation limits, not legal rate limits.
 

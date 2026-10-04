@@ -7,6 +7,7 @@ Read `README.md` first. It is the authoritative product and calculation context.
 - Next.js App Router + React + strict TypeScript, static export for Netlify.
 - English source code, filenames, identifiers, comments, tests and documentation. Spanish user-facing copy, `es-CO`, COP. Do not translate identifiers into Spanish.
 - Black + copper aesthetic inspired by Slash. Preserve the established palette, restrained serif display/sans UI pairing and decimal-aligned financial data. Avoid unrelated gradients, neon colors, visual clutter and decorative motion.
+- The footer heart has a user-approved Colombian flag treatment. Restrict yellow/blue/red accents to that icon; keep the surrounding text and interface in the existing palette.
 - Browser-only financial logic and PDF generation, no accounts, optional explicit local save.
 - React PDF, AdSense and GA4. Live account setup is a separate deployment dependency; do not fabricate IDs or claim setup has been completed.
 - First version: fixed-rate loans and investments. Broader financial products need clearly documented calculation changes.
@@ -34,6 +35,9 @@ Read `README.md` first. It is the authoritative product and calculation context.
 8. Bank-installment inference uses original loan inputs. Explain that insurance/fees invalidate the interpretation as pure interest.
 9. Investment contributions occur at month end. Withdrawn interest is separated from invested balance and does not compound.
 10. Never silently expand the scope to taxes, fees, variable rates, inflation or exact daily CDT settlement. Specify the model and verify independent expected cash flows first.
+11. Income goals use a positive assumed E.A. rate (default 9%), compound-equivalent monthly income and upward-rounded required capital. Reinvest during accumulation, deposit at month end, stop at goal or horizon. Keep already-reached and unreachable goals explicit. Product labels do not change mathematics; ETF total return is not guaranteed monthly income or dividends.
+
+Use `src/components/icons.ts` for icons. Its English aliases wrap Colombia Icons exports. Keep saved v1 simulations compatible when adding input sets; do not persist while typing. Route-level FAQs must remain reachable from methodology/privacy pages.
 
 ## Design, accessibility and privacy
 
@@ -55,3 +59,13 @@ Document changes to financial assumptions and public environment settings in REA
 ## Suggested next areas
 
 Production domain and Google configuration; certified regional consent; operator/contact details; automated browser accessibility checks; additional one-off abonos and exact daily CDT calculation as separately specified features.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

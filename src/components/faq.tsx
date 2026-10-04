@@ -1,4 +1,4 @@
-import { Plus } from "@phosphor-icons/react/dist/ssr";
+import { Plus } from "@/components/icons";
 import { calculatorContent } from "@/lib/content";
 import type { CalculatorKind } from "@/lib/finance/types";
 

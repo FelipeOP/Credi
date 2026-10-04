@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/credito/",
     "/abonos/",
     "/inversion/",
+    "/ingresos/",
     "/metodologia/",
     "/privacidad/",
   ].map((path) => ({

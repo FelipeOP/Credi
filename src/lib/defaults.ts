@@ -1,8 +1,18 @@
 import type {
+  IncomeInput,
   InvestmentInput,
   LoanInput,
   PrepaymentInput,
 } from "./finance/types";
+
+export const defaultIncome: IncomeInput = {
+  desiredMonthlyIncome: 1000000,
+  annualRate: 9,
+  initialCapital: 10000000,
+  monthlyContribution: 1000000,
+  maximumMonths: 240,
+  assetKind: "savings",
+};
 
 export const defaultLoan: LoanInput = {
   principal: 29300000,

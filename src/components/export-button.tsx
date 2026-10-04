@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { DownloadSimple, SpinnerGap } from "@phosphor-icons/react";
+import { DownloadSimple, SpinnerGap } from "@/components/icons";
 import type { ReportModel } from "@/lib/report";
 import { trackEvent } from "./privacy-provider";
 import { useConsent } from "./privacy-provider";

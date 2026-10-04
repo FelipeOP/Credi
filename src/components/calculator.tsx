@@ -10,10 +10,11 @@ import {
   Info,
   LockSimple,
   Sparkle,
-} from "@phosphor-icons/react";
+} from "@/components/icons";
 import { calculatorContent } from "@/lib/content";
 import {
   defaultInvestment,
+  defaultIncome,
   defaultLoan,
   defaultPrepayment,
 } from "@/lib/defaults";
@@ -23,7 +24,7 @@ import {
   calculatePrepayment,
 } from "@/lib/finance/calculations";
 import type {
-  CalculatorKind,
+  StandardCalculatorKind,
   InvestmentInput,
   LoanInput,
   LoanResult,
@@ -52,13 +53,13 @@ interface Results {
   prepayment?: PrepaymentResult;
   investment?: InvestmentResult;
 }
-const inputFor = (state: SimulationState, kind: CalculatorKind) =>
+const inputFor = (state: SimulationState, kind: StandardCalculatorKind) =>
   kind === "credit"
     ? state.loan
     : kind === "prepayment"
       ? state.prepayment
       : state.investment;
-function compute(state: SimulationState, kind: CalculatorKind): Results {
+function compute(state: SimulationState, kind: StandardCalculatorKind): Results {
   return kind === "credit"
     ? { loan: calculateLoan(state.loan) }
     : kind === "prepayment"
@@ -66,7 +67,7 @@ function compute(state: SimulationState, kind: CalculatorKind): Results {
       : { investment: calculateInvestment(state.investment) };
 }
 
-export function Calculator({ kind }: { kind: CalculatorKind }) {
+export function Calculator({ kind }: { kind: StandardCalculatorKind }) {
   const content = calculatorContent[kind];
   const { state, setState } = useSession();
   const { analytics } = useConsent();
@@ -78,6 +79,7 @@ export function Calculator({ kind }: { kind: CalculatorKind }) {
         loan: defaultLoan,
         prepayment: defaultPrepayment,
         investment: defaultInvestment,
+        income: defaultIncome,
       };
       return { inputs: defaults, results: compute(defaults, kind) };
     }

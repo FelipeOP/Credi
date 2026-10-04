@@ -1,4 +1,5 @@
-export type CalculatorKind = "credit" | "prepayment" | "investment";
+export type CalculatorKind = "credit" | "prepayment" | "investment" | "income";
+export type StandardCalculatorKind = Exclude<CalculatorKind, "income">;
 export type RateKind = "effective" | "nominal" | "monthly";
 
 export interface LoanInput {
@@ -100,4 +101,22 @@ export interface InvestmentResult {
   totalContributions: number;
   totalInterest: number;
   totalValue: number;
+}
+
+export interface IncomeInput {
+  desiredMonthlyIncome: number;
+  annualRate: number;
+  initialCapital: number;
+  monthlyContribution: number;
+  maximumMonths: number;
+  assetKind: "cdt" | "savings" | "etf";
+}
+
+export interface IncomeResult {
+  requiredCapital: number;
+  monthsToGoal: number | null;
+  projectedMonthlyIncome: number;
+  shortfall: number;
+  projection: InvestmentResult;
+  milestones: Array<{ percentage: number; capital: number; month: number | null }>;
 }

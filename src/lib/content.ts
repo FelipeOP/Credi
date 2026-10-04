@@ -4,6 +4,10 @@ const monthlyRateFaq = [
   "¿Cuál es la diferencia entre M.V., N.A.M.V. y E.A.?",
   "M.V. es la tasa de cada mes, con intereses liquidados al final del período. N.A.M.V. es una tasa nominal anual dividida en 12 meses: 24 % N.A.M.V. equivale a 2 % M.V. La efectiva anual incorpora la capitalización: ese 2 % mensual equivale aproximadamente a 26,82 % E.A., no a 24 % E.A. Si tu extracto dice 2 % M.V., selecciona Mensual M.V.; si dice 24 % nominal anual mes vencido, selecciona Nominal anual y periodicidad Mes vencido.",
 ];
+const principalFaq = [
+  "¿Qué es el capital pagado en la cuota?",
+  "Es la parte de tu cuota que devuelve el dinero prestado y reduce la deuda. Se calcula restando los intereses de la cuota: si pagas $500.000 y $100.000 corresponden a intereses, abonas $400.000 de capital. Los intereses pagan el costo del préstamo, pero no reducen el saldo. Si además haces un abono de $200.000, tu deuda baja $600.000 en total. La tabla separa el capital de la cuota del abono adicional.",
+];
 
 export const calculatorContent = {
   credit: {
@@ -22,6 +26,7 @@ export const calculatorContent = {
       "Al principio pagas más intereses. Con el tiempo, una mayor parte de tu cuota reduce el capital.",
     faqs: [
       monthlyRateFaq,
+      principalFaq,
       [
         "¿Qué es una tasa efectiva anual (E. A.)?",
         "Expresa el crecimiento equivalente de una tasa durante un año, incluyendo su capitalización. Para calcular cuotas mensuales convertimos la E. A. a una tasa mensual equivalente; no la dividimos entre 12.",
@@ -60,6 +65,7 @@ export const calculatorContent = {
       "Compara el saldo pendiente de ambos escenarios al terminar cada mes. La misma tasa y el mismo saldo inicial se usan en los dos.",
     faqs: [
       monthlyRateFaq,
+      principalFaq,
       [
         "¿Qué es un abono a capital?",
         "Es un pago adicional que reduce directamente la deuda pendiente. No es lo mismo que adelantar cuotas: su efecto depende de que el banco lo aplique al capital.",
@@ -121,6 +127,26 @@ export const calculatorContent = {
         "¿Incluye impuestos, inflación o comisiones?",
         "No. Los rendimientos son brutos y la tasa permanece fija durante toda la proyección. La rentabilidad neta y el poder adquisitivo pueden ser diferentes.",
       ],
+    ],
+  },
+  income: {
+    path: "/ingresos/",
+    label: "Meta de ingresos",
+    eyebrow: "CONSTRUYE TU META",
+    title: "Un ingreso mensual.",
+    emphasis: "Un plan para lograrlo.",
+    description: "Calcula el capital que necesitarías para generar rendimientos mensuales y cuánto tardarías en reunirlo con tus aportes.",
+    formTitle: "Tu meta de ingresos",
+    formDescription: "Elige un ingreso y un aporte que puedas sostener.",
+    resultTitle: "Tu camino hacia la meta",
+    chartTitle: "Cada aporte te acerca",
+    chartDescription: "Reinvertimos los rendimientos mientras acumulas capital. La línea de meta indica el saldo necesario para el ingreso elegido.",
+    faqs: [
+      ["¿Cómo calculan cuánto necesito invertir?", "Dividimos el ingreso mensual deseado entre la tasa mensual equivalente: capital = ingreso / ((1 + E.A.)^(1/12) − 1). Por ejemplo, a 1 % mensual necesitas $100.000.000 para generar $1.000.000 brutos al mes. La tasa predeterminada de 9 % E.A. es un supuesto editable, no una oferta de una entidad."],
+      ["¿Qué representa la línea del tiempo?", "Muestra cuándo alcanzarías el 25 %, 50 %, 75 % y 100 % del capital objetivo. Durante esta etapa reinviertes todos los rendimientos y aportas al final de cada mes. Si tu capital inicial ya alcanza la meta, puedes verla cumplida hoy. Si no la alcanzas dentro del horizonte, mostramos el faltante y el ingreso estimado al cierre."],
+      ["¿Un CDT o una cajita me pagarán cada mes?", "Depende del producto. Un CDT puede pagar al vencimiento y no permitir aportes; una cajita puede cambiar su tasa. Aquí el ingreso es un equivalente mensual bruto. Para recibir pagos mensuales reales debes revisar periodicidad, disponibilidad y condiciones del producto."],
+      ["¿Sirve para proyectar un ETF?", "Solo como escenario matemático con una rentabilidad constante asumida. Un ETF fluctúa y puede perder valor; rentabilidad total y dividendos no son lo mismo. No garantiza un pago mensual. Vender participaciones para obtener ingresos puede consumir capital."],
+      ["¿Puedo retirar ese ingreso sin reducir el capital?", "En este modelo constante, una vez reunido el capital objetivo, retirar solo los rendimientos conserva el capital nominal. No modelamos impuestos, comisiones, inflación ni variaciones de precio o tasa. Por eso no es una estrategia garantizada de retiros ni una rentabilidad neta."],
     ],
   },
 } satisfies Record<

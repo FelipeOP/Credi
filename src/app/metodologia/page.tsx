@@ -75,6 +75,22 @@ export default function MethodologyPage() {
         comisiones e inflación. Un CDT puede liquidar por días, usar una base
         contractual distinta y no permitir aportes adicionales.
       </p>
+      <h2>Meta de ingresos mensuales</h2>
+      <p>
+        El capital objetivo es el ingreso mensual deseado dividido entre la tasa
+        mensual equivalente. Lo redondeamos hacia arriba a centavos. La línea del
+        tiempo reinvierte todos los rendimientos y añade aportes al final del mes,
+        hasta alcanzar la meta o el horizonte máximo. Los hitos corresponden al
+        primer mes en que se alcanza cada porcentaje del objetivo.
+      </p>
+      <p>
+        Usamos 9 % E.A. como supuesto editable, no como oferta. El ingreso es un
+        equivalente mensual bruto. Un CDT puede pagar al vencimiento; una cajita
+        puede cambiar su tasa. Un ETF tiene precio variable: rentabilidad total
+        no equivale a dividendos ni garantiza un ingreso mensual. Retirar solo
+        rendimientos conserva el capital nominal únicamente bajo el supuesto
+        constante del modelo, sin impuestos, comisiones ni inflación.
+      </p>
       <h2>Redondeo y agregación</h2>
       <p>
         El motor usa precisión decimal de 32 dígitos y redondea los movimientos

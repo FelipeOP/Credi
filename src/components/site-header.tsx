@@ -2,17 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  ArrowUpRight,
-  BookmarkSimple,
-  Check,
-  Trash,
-} from "@phosphor-icons/react";
+import { ArrowUpRight, BookmarkSimple, Check, Trash } from "@/components/icons";
 import { useSession } from "./session-provider";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const { save, clear, hasSaved, message } = useSession();
+  const calculatorPaths = [
+    "/",
+    "/credito",
+    "/abonos",
+    "/inversion",
+    "/ingresos",
+  ];
+  const isCalculator = calculatorPaths.includes(
+    pathname.replace(/\/$/, "") || "/",
+  );
+  const questionsPath = isCalculator
+    ? `${pathname}#questions`
+    : "/credito/#questions";
   return (
     <>
       <header className="site-header">
@@ -27,25 +35,27 @@ export function SiteHeader() {
             <Link href="/metodologia/">
               Cómo calculamos <ArrowUpRight size={14} />
             </Link>
-            <a href="#questions">Preguntas frecuentes</a>
+            <Link href={questionsPath}>Preguntas frecuentes</Link>
           </nav>
-          <div className="header-actions">
-            <button className="quiet-button save-button" onClick={save}>
-              <BookmarkSimple size={17} /> <span>Guardar simulación</span>
-            </button>
-            {hasSaved && (
-              <button
-                className="icon-button"
-                onClick={clear}
-                aria-label="Eliminar simulaciones guardadas"
-              >
-                <Trash size={17} />
+          {isCalculator && (
+            <div className="header-actions">
+              <button className="quiet-button save-button" onClick={save}>
+                <BookmarkSimple size={17} /> <span>Guardar simulación</span>
               </button>
-            )}
-          </div>
+              {hasSaved && (
+                <button
+                  className="icon-button"
+                  onClick={clear}
+                  aria-label="Eliminar simulaciones guardadas"
+                >
+                  <Trash size={17} />
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </header>
-      {message && (
+      {isCalculator && message && (
         <div className="storage-message" role="status">
           <Check size={16} />
           {message}
@@ -57,6 +67,7 @@ export function SiteHeader() {
             { href: "/credito/", label: "Crédito", number: "01" },
             { href: "/abonos/", label: "Abonos a capital", number: "02" },
             { href: "/inversion/", label: "Inversión", number: "03" },
+            { href: "/ingresos/", label: "Meta de ingresos", number: "04" },
           ].map(({ href, label, number }) => (
             <Link
               key={href}

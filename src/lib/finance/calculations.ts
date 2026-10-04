@@ -280,7 +280,7 @@ export function calculatePrepayment(input: PrepaymentInput): PrepaymentResult {
 }
 
 export function calculateInvestment(input: InvestmentInput): InvestmentResult {
-  requireNumber(input.principal, "El capital inicial", 1, 1e12);
+  requireNumber(input.principal, "El capital inicial", 0, 1e12);
   requireNumber(input.annualRate, "La tasa anual", 0, 200);
   requireNumber(input.months, "El plazo", 1, 600);
   requireNumber(input.monthlyContribution, "El aporte mensual", 0, 1e12);
