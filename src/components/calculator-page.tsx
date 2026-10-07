@@ -7,7 +7,11 @@ import type { CalculatorKind } from "@/lib/finance/types";
 export function CalculatorPage({ kind }: { kind: CalculatorKind }) {
   return (
     <main id="main-content" className="page-container">
-      {kind === "income" ? <IncomeCalculator /> : <Calculator key={kind} kind={kind} />}
+      {kind === "income" ? (
+        <IncomeCalculator />
+      ) : (
+        <Calculator key={kind} kind={kind} />
+      )}
       <AdSlot />
       <FAQ kind={kind} />
     </main>

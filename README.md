@@ -24,6 +24,7 @@ Open http://127.0.0.1:3000. Run `pnpm test`, `pnpm typecheck` and `pnpm build` b
 - PDF reports use a white statement-style layout with restrained copper accents, explicit font sizes/leading, a compact executive summary and proportioned numeric columns. The Nu screenshot is a layout reference only; no personal details or Nu branding are reproduced.
 - Colombia Icons React (`@mteherandev/colombia-icons-react`, MIT) replaces Phosphor. `src/components/icons.ts` maps upstream Spanish export names to the application's English vocabulary. Generic line icons preserve the restrained visual system; no unrelated decorative icons are added.
 - The footer heart is a user-approved Colombian flag accent: hard-stop yellow, blue and red SVG strokes. Keep this treatment confined to the country icon; footer text and the rest of the interface retain the existing palette.
+- Methodology formulas use KaTeX with build-time HTML + MathML rendering, local fonts, symbol definitions and independent numeric examples. Only author-controlled TeX is rendered; financial inputs never pass through KaTeX. Credit results link to the prepayment calculator directly below the executive summary, carrying the last calculated loan snapshot and explaining stale inputs.
 
 ## Architecture
 

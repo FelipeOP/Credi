@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   ArrowRight,
-  ArrowUpRight,
   CheckCircle,
   Info,
   LockSimple,
@@ -59,7 +58,10 @@ const inputFor = (state: SimulationState, kind: StandardCalculatorKind) =>
     : kind === "prepayment"
       ? state.prepayment
       : state.investment;
-function compute(state: SimulationState, kind: StandardCalculatorKind): Results {
+function compute(
+  state: SimulationState,
+  kind: StandardCalculatorKind,
+): Results {
   return kind === "credit"
     ? { loan: calculateLoan(state.loan) }
     : kind === "prepayment"
@@ -673,6 +675,46 @@ export function Calculator({ kind }: { kind: StandardCalculatorKind }) {
               )}
             </div>
           </section>
+          {loan && (
+            <section
+              className="prepayment-prompt"
+              aria-labelledby="prepayment-prompt-title"
+            >
+              <div>
+                <h3 id="prepayment-prompt-title">
+                  ¿Y si pagas menos intereses?
+                </h3>
+                <p>
+                  Compara un plan de abonos con este crédito y descubre cuánto
+                  ahorrarías.
+                </p>
+                {dirty && (
+                  <p className="prepayment-prompt-note">
+                    Usaremos los últimos datos calculados. Recalcula primero
+                    para incluir tus cambios.
+                  </p>
+                )}
+              </div>
+              <Link
+                href="/abonos/"
+                className="primary-button prepayment-prompt-link"
+                onClick={() =>
+                  setState((previous) => ({
+                    ...previous,
+                    prepayment: {
+                      ...defaultPrepayment,
+                      ...snapshot.inputs.loan,
+                      endMonth: snapshot.inputs.loan.months,
+                      startMonth: 1,
+                    },
+                  }))
+                }
+              >
+                Simular abonos a capital{" "}
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+            </section>
+          )}
           <p role="status" className="sr-only">
             {status}
           </p>
@@ -781,26 +823,6 @@ export function Calculator({ kind }: { kind: StandardCalculatorKind }) {
               )}
             </p>
           </div>
-          {loan && (
-            <Link
-              href="/abonos/"
-              className="continue-link"
-              onClick={() =>
-                setState((previous) => ({
-                  ...previous,
-                  prepayment: {
-                    ...defaultPrepayment,
-                    ...snapshot.inputs.loan,
-                    endMonth: snapshot.inputs.loan.months,
-                    startMonth: 1,
-                  },
-                }))
-              }
-            >
-              Explorar cuánto ahorrarías con abonos a capital{" "}
-              <ArrowUpRight size={17} />
-            </Link>
-          )}
         </div>
       </div>
       <ScheduleTable

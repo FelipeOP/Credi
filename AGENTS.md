@@ -18,6 +18,7 @@ Read `README.md` first. It is the authoritative product and calculation context.
 - `src/lib/report.ts` maps calculated snapshots to report content. UI and PDF must share the same calculated values and assumptions.
 - Components own presentation and interactions. PDF uses React PDF primitives; never assume DOM components or styles can render into a PDF.
 - Static route pages own indexable text, metadata and educational FAQs. Primary calculator navigation uses real URLs, not hidden panels under one URL.
+- Methodology formulas use the server-rendered `Formula` component with KaTeX HTML + MathML. Render only author-controlled TeX, keep symbol definitions and numeric examples, and do not move financial calculations into the renderer.
 - Session state is shared under the root provider. Never persist automatically merely because the user typed. Existing saved inputs restore on reload; malformed/unavailable storage must fail safely.
 - Export must be disabled whenever inputs differ from the calculated snapshot.
 - Use package dependencies already installed; inspect `package.json` before adding or importing new ones. Native CSS is sufficient for current motion.
